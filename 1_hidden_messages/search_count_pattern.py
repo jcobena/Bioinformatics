@@ -1,61 +1,50 @@
-'''python script to look for a pattern inside a string, 
-   then  counts how many times it appears'''
 
-
+   
 def main():
     
-    with open('dataset_2_6_3.txt', 'r') as infile:
-        mycounter = 0
-        
-        mylst = []
+    with open('dataset_2_13.txt', 'r') as infile:
+    
         for i,j in enumerate(infile):
             if i == 0:
-                mystring = str(j.strip()) 
-                
+                mytxt = str(j.strip()) 
+
             else:
-                mypattern = str(j.strip())
-                 
-        print('mystring = ', mystring) 
-        print('mypattern = ', mypattern)
+                myk = int(j.strip())
+    
+    mybfq = BettFreqWords(mytxt, myk)
+    
+    print(*mybfq)
+    
+
+def BettFreqWords(atext,k):
+    
+    freqpatt = []
+    freqmap = FreqTable(atext, k)
+    
+    #this line finds the max values
+    max_keys = [key for key, value in freqmap.items() if value == max(freqmap.values())]
+    
+    return max_keys
         
-        lenstring = len(mystring) - len(mypattern) 
-        lastelemt = len(mystring) - len(mypattern)
         
-        print('mystring len = ', len(mystring))
-        print('mypattern len = ', len(mypattern))
+def FreqTable(atext,k):
+    
+    freqmap = {}
+    n = len(atext)
+    
+    for i in range(0, n-k+1 ,1):
+        apattern = atext[i:i+k]
         
-        for i in range(0, lenstring, 1):
-            alst = []
-            bodytest = []
-            #print('i value = ', i)
-            testorigin = mystring[i]
-            alst.append(testorigin)   
-            
-            m = i + 1
-            n = i + len(mypattern) #because last element is not counted
-            
-            tmp_lst = mystring[m:n]  
-   
-            for j in tmp_lst:
-                bodytest.append(j)
-        
-            for k in bodytest:
-                alst.append(k)
+        if apattern in freqmap:
+            freqmap[apattern] = freqmap[apattern] + 1
                 
-            str1 = ''.join(alst)
-            #print(str1)
+        else:
+            freqmap[apattern] = 1
             
-            print(str1, mypattern)
+    #max_keys = [key for key, value in freqmap.items() if value == max(freqmap.values())]
+    #return max_keys
+    
+    return freqmap
             
-            if str1 == mypattern:
-                mycounter = mycounter+1
-                
-        print('The pattern {} appears {} times'.format(mypattern, mycounter))
-                
-            
-            
-   
-                
-        
 
 if __name__ == "__main__": main()
