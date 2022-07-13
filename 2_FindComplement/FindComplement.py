@@ -1,13 +1,9 @@
-'''python script to look for a pattern inside a string, 
-   then  counts how many times it appears'''
-from _testmultiphase import str_const
-
 base_1 = ['A', 'G']
 base_2 = ['T', 'C']
 
 def main():
     #------------------------------------------------
-    with open('dataset_3_2_1.txt', 'r') as infile:
+    with open('dataset_3_2.txt', 'r') as infile:
     
         for i in infile:
             mystring = str(i.strip()) 
